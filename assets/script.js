@@ -11,10 +11,17 @@
 
 var score = document.getElementById("timer");
 var pageContent = document.getElementById("quiz-container");
+var titleEl = document.getElementById("title");
+var questionBoxEl = document.getElementById("question-container");
 var questionEl = document.getElementById("question");
-var timer = 0
 var startBtnEl = document.getElementById("startBtn");
-var answerEl = document.getElementById("answers");
+var ans1 = document.getElementById("a1");
+var ans2 = document.getElementById("a2");
+var ans3 = document.getElementById("a3");
+var ans4 = document.getElementById("a4");
+var resultEL = document.getElementById("result");
+var questionCount = 0;
+var timer = 0;
 
 var scoreBar = function() {    
     var timeDisplay = document.createElement("span");
@@ -26,64 +33,96 @@ var scoreBar = function() {
 
 var questions = [
     {
-        title: "Question 1: Boolean variables can only be which 2 values?",
-        option1: "Yes or No",
-        option2: "True or False",
-        option3: "1 or 0",
-        option4: "Coke or Pepsi",
-        answer: "True or False"
-    },
-    {
-        title: "Question 2: The condition of an if statement is enclosed within?",
-        option1: "Curly Brackets {}",
-        option2: "Square Brackets []",
-        option3: "Parentheses ()",
-        option4: "Quotes ''",
-        answer: "Parentheses ()"
-    },
-    {
-        title: "Question 3: Which type of tag is used for JavaScript?",
-        option1: "link",
-        option2: "span",
-        option3: "div",
-        option4: "script",
-        answer: "script"
-    },
-    {
-        title: "Question 4: The logical operator for 'and' is?",
-        option1: "&&",
-        option2: "||",
-        option3: "===",
-        option4: ">=",
-        answer: "&&"
-    },
-    {
-        title: "Question 5: Using the plain Math.random() function will produce a random number between 0 and?",
-        option1: "100",
-        option2: "1000",
-        option3: "1",
-        option4: "Infinity",
+        question: "Question 1: Boolean variables can only be which 2 values?",
+        options: ["Yes or No", "True or False", "1 or 0", "Coke or Pepsi"],
         answer: "1"
+    },
+    {
+        question: "Question 2: The condition of an if statement is enclosed within?",
+        options: ["Curly Brackets {}", "Square Brackets []", "Parentheses ()", "Quotes ''"],
+        answer: "2"
+    },
+    {
+        question: "Question 3: Which type of tag is used for JavaScript?",
+        options: ["link", "span", "div", "script"],
+        answer: "3"
+    },
+    {
+        question: "Question 4: The logical operator for 'and' is?",
+        options: ["&&", "||", "===", ">="],
+        answer: "0"
+    },
+    {
+        question: "Question 5: Using the plain Math.random() function will produce a random number between 0 and?",
+        options: ["100", "1000", "1", "Infinity"],
+        answer: "2"
     }
 ];
 
 
+
 var startQuiz = function() {
-    console.log("started");
-    for (i=0; i<questions.length; i++) {
-        questionEl.innerHTML = questions[i].title;
-        var options = document.createElement("button");
-        options.textContent = questions[i].option1;
-        answerEl.appendChild(options);
-        console.log(options);
-    }
-}
-var checkTimer = function() {    
+    titleEl.style.display = "none"
+    questionBoxEl.style.display = "block"
+    questionCount = 0; 
+    displayQuestion(questionCount);
     
-};
+}
+
+//display questions in order
+var displayQuestion = function(id) {
+    if (id < questions.length) {
+        questionEl.textContent = questions[id].question;
+        ans1.textContent = questions[id].options[0];
+        ans2.textContent = questions[id].options[1];
+        ans3.textContent = questions[id].options[2];
+        ans4.textContent = questions[id].options[3];
+    }
+    console.log(questionEl);
+    console.log(questions[id].question);
+    console.log(ans1);
+    console.log(questionCount);
+}
+
+//check answer and move to next question
+var checkAnswer = function(event) {
+    event.preventDefault();
+    resultEL.style.display = "block";
+    var resultText = document.createElement("p");
+    resultEL.appendChild(resultText);
+
+    //display result for 2 seconds
+    setTimeout(function() {
+        resultText.style.display = "none"
+    }, 2000);
+
+    //Check the answer
+    if (questions[questionCount].answer === event.target.value) {
+        resultText.textContent = "Correct";
+    }
+    else if (questions[questionCount].answer !== event.target.value) {
+        timer = timer - 10;
+        resultText.textContent = "Wrong";
+    };
+
+    //Increment Count to move to next question
+    if (questionCount < questions.length) {
+        questionCount++;
+    };
+    displayQuestion(questionCount);
+    console.log(questionCount);
+}
 
 
+// Event listener to start quiz
 startBtnEl.addEventListener("click", startQuiz);
+
+//Event listeners for answer buttons
+ans1.addEventListener("click", checkAnswer);
+ans2.addEventListener("click", checkAnswer);
+ans3.addEventListener("click", checkAnswer);
+ans4.addEventListener("click", checkAnswer);
+
 scoreBar();
 
 
