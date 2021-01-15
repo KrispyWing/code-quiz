@@ -18,6 +18,7 @@ var startBtnEl = document.getElementById("startBtn");
 var scoreEL = document.getElementById("score-page");
 var highScoreEl = document.getElementById("high-scores");
 var scoreListEl = document.getElementById("score-list");
+var nameInput = document.getElementById("name");
 var ans1 = document.getElementById("a1");
 var ans2 = document.getElementById("a2");
 var ans3 = document.getElementById("a3");
@@ -25,6 +26,7 @@ var ans4 = document.getElementById("a4");
 var resultEL = document.getElementById("result");
 var questionCount = 0;
 var timer = 0;
+var scoresList = [];
 
 var scoreBar = function() {    
     var timeDisplay = document.createElement("span");
@@ -107,8 +109,15 @@ var checkAnswer = function(event) {
     //Increment Count to move to next question
     if (questionCount < questions.length) {
         questionCount++;
-    };
-    displayQuestion(questionCount);
+        displayQuestion(questionCount);
+        console.log(questions.length)
+        console.log(questionCount);
+    }
+    else if (questionCount === questions.length) {
+        questionBoxEl.style.display = "none";
+        scoreEL.style.display = "block";
+    }
+    
 }
 
 var addScore = function(event) {
@@ -117,7 +126,15 @@ var addScore = function(event) {
     scoreEL.style.display = "none";
     highScoreEl.style.display ="block";
 
-    
+    var name = nameInput.value;
+    scoresList.push({name: name, score: timer});
+
+    scoreListEl.innerHTML="";
+    for (let i=0; i < scoresList.length; i++) {
+        var scoreItem = document.createElement("li");
+        scoreItem.textContent = localStorage.getItem(scoresList[i].name, scoresList[i.score]);
+        scoreListEl.append(scoreItem);
+    }
 }
 
 
