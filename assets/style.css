@@ -13,7 +13,9 @@
 
 #answers, 
 #question-container,
-#result {
+#result,
+#score-page,
+#high-scores {
     display: none;    
 }
 

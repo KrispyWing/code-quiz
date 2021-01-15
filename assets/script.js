@@ -15,6 +15,9 @@ var titleEl = document.getElementById("title");
 var questionBoxEl = document.getElementById("question-container");
 var questionEl = document.getElementById("question");
 var startBtnEl = document.getElementById("startBtn");
+var scoreEL = document.getElementById("score-page");
+var highScoreEl = document.getElementById("high-scores");
+var scoreListEl = document.getElementById("score-list");
 var ans1 = document.getElementById("a1");
 var ans2 = document.getElementById("a2");
 var ans3 = document.getElementById("a3");
@@ -77,11 +80,7 @@ var displayQuestion = function(id) {
         ans2.textContent = questions[id].options[1];
         ans3.textContent = questions[id].options[2];
         ans4.textContent = questions[id].options[3];
-    }
-    console.log(questionEl);
-    console.log(questions[id].question);
-    console.log(ans1);
-    console.log(questionCount);
+    }    
 }
 
 //check answer and move to next question
@@ -110,8 +109,17 @@ var checkAnswer = function(event) {
         questionCount++;
     };
     displayQuestion(questionCount);
-    console.log(questionCount);
 }
+
+var addScore = function(event) {
+    event.preventDefault();
+
+    scoreEL.style.display = "none";
+    highScoreEl.style.display ="block";
+
+    
+}
+
 
 
 // Event listener to start quiz
