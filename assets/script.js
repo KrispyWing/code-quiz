@@ -140,7 +140,7 @@ var addScore = function(event) {
     var name = nameInput.value.toUpperCase();
     scoresList.push({name: name, score: timer});
 
-    /* //sort the scores
+    //sort the scores
     scoresList = scoresList.sort((a, b) => {
         if (a.score < b.score) {
             return 1;
@@ -148,7 +148,7 @@ var addScore = function(event) {
         else {
             return -1;
         }
-    }); */
+    }); 
 
     scoreListEl.innerHTML="";
     saveScores();
