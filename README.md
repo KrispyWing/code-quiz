@@ -1,9 +1,9 @@
 # Simple JavaScript Quiz
 
-*[General Info](#General-Info)
-*[Technology](#Technology)
-*[Setup](#Setup)
-*[Preview](#Preview)
+* [General Info](#General-Info)
+* [Technology](#Technology)
+* [Setup](#Setup)
+* [Preview](#Preview)
 
 ## General Info
 This is a simple Quiz with questions about Javascript coding.
