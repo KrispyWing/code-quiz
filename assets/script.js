@@ -71,7 +71,7 @@ var questions = [
 var setTime = function() {
     var timeInterval = setInterval(function() {
        timer--;
-       score.textContent = timer;
+       score.textContent = "Time Left: " + timer;
        
        if (timer === 0 || questionCount === questions.length) {
            clearInterval(timeInterval);
