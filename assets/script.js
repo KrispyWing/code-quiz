@@ -25,6 +25,9 @@ var ans2 = document.getElementById("a2");
 var ans3 = document.getElementById("a3");
 var ans4 = document.getElementById("a4");
 var resultEL = document.getElementById("result");
+var submitScoreBtn = document.getElementById("submit-score");
+var restartBtn = document.getElementById("restart");
+var highScoreBtn = document.getElementById("view-scores")
 var questionCount = 0;
 var timer = 60;
 var scoresList = [];
@@ -134,17 +137,49 @@ var addScore = function(event) {
     scoreEL.style.display = "none";
     highScoreEl.style.display ="block";
 
-    var name = nameInput.value;
+    var name = nameInput.value.toUpperCase();
     scoresList.push({name: name, score: timer});
 
+    /* //sort the scores
+    scoresList = scoresList.sort((a, b) => {
+        if (a.score < b.score) {
+            return 1;
+        }
+        else {
+            return -1;
+        }
+    }); */
+
     scoreListEl.innerHTML="";
+    saveScores();
+    showScores();
+
+
     for (let i=0; i < scoresList.length; i++) {
-        var scoreItem = document.createElement("li");
-        scoreItem.textContent = localStorage.getItem(scoresList[i].name, scoresList[i.score]);
-        scoreListEl.append(scoreItem);
+        var retrieveScores = localStorage.getItem("scoresList");        
+        var scoreListing = JSON.parse(retrieveScores);
+        console.log(scoreListing);
+        var scoreListItem = document.createElement("li");
+        scoreListItem.textContent = scoreListing[i].name + ": " + scoreListing[i].score;        
+        scoreListEl.append(scoreListItem);
     }
+    //saveScores();
+    //showScores();
 }
 
+//save scores to localStorage
+var saveScores = function() {
+    localStorage.setItem("scoresList", JSON.stringify(scoresList));
+}
+
+//show scores on the high score page
+var showScores = function () {
+    var savedScoreList = JSON.parse(localStorage.getItem("scoresList"));
+    
+    if (savedScoreList !== null) {
+        scoresList = savedScoreList;
+    }
+}
 
 
 // Event listener to start quiz
@@ -156,6 +191,25 @@ ans2.addEventListener("click", checkAnswer);
 ans3.addEventListener("click", checkAnswer);
 ans4.addEventListener("click", checkAnswer);
 
+//event listener to submit score
+submitScoreBtn.addEventListener("click", addScore);
+
+//Restart Quiz 
+restartBtn.addEventListener("click", function() {
+    highScoreEl.style.display = "none";
+    titleEl.style.display = "block";
+    timer = 60;
+})
+
 scoreBar();
+
+// View High Scores
+highScoreBtn.addEventListener("click", function() {
+        titleEl.style.display = "none";
+        highScoreEl.style.display = "block";
+        showScores();    
+})
+
+
 
 

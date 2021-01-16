@@ -9,7 +9,7 @@
 </head>
 <body>
     <header class="score-bar" id="score-bar">
-        <a href="./highscores.html">High Scores</a>
+        <button id="view-scores">High Scores</button>
         <div class="timer" id="timer">Time Left: </div>
     </header>
     <div class="quiz-container" id="quiz-container">
@@ -34,16 +34,16 @@
         <div id="score-page">
             <h2>Here's how you did</h2>
             <p>Your Final Score is: <span id="score">0</span></p>
-            <p>Enter your Name: <span><input placeholder="Name" id="name" /></span>
+            <p>Enter your Initials: <span><input placeholder="Name" id="name" maxlength="3" size="5"/>(max 3 character)</span>
             <button id="submit-score">Submit</button>
             </p>
+        </div>      
+        <div id="high-scores">
+            <h2>High Scores</h2>
+            <ol id="score-list">            
+            </ol>
+            <button id="restart">Restart Quiz</button>        
         </div>
-    </div>  
-    <div id="high-scores">
-        <h2>High Scores</h2>
-        <ol id="score-list">            
-        </ol>
-        <button id="restart">Restart Quiz</button>        
     </div>
     <script src="./assets/script.js"></script>
 </body>
